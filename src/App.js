@@ -7,6 +7,7 @@ export default function App() {
   let [excel, setExcel] = useState(null);
   let [cells, setCells] = useState(null);
   let [msgs, setMsgs] = useState([]);
+  let [messagesSet, setMessagesSet] = useState(false);
 
   useEffect(async () => {
     const response = await fetch(
@@ -25,34 +26,38 @@ export default function App() {
   }, [excel]);
 
   useEffect(() => {
-    let message = { content: "", options: [], actions: [] };
-    let messages = [];
-    let questions = [],
-      options = [],
-      actions = [];
+    if (!messagesSet) {
+      let message = { content: "", options: [], actions: [] };
+      let messages = [];
+      let questions = [],
+        options = [],
+        actions = [];
 
-    cells &&
-      cells.forEach((c, index) => {
-        if (index == 0 || index % 7 === 0) {
-          questions.push(c.$t);
-        } else {
-          if (c.col == 2) {
-            actions.push(c.$t);
+      cells &&
+        cells.forEach((c, index) => {
+          if (index == 0 || index % 7 === 0) {
+            questions.push(c.$t);
           } else {
-            options.push(c.$t);
+            if (c.col == 2) {
+              actions.push(c.$t);
+            } else {
+              options.push(c.$t);
+            }
           }
-        }
-      });
+        });
 
-    questions &&
-      questions.forEach((q, index) => {
-        message.content = q;
-        let sliceStarts = index === 0 ? 0 : NUM_OPTIONS * index;
-        let sliceEnds = sliceStarts + NUM_OPTIONS;
-        message.options = options.slice(sliceStarts, sliceEnds);
-        message.actions = actions.slice(sliceStarts, sliceEnds);
-        console.log(message);
-      });
+      questions &&
+        questions.forEach((q, index) => {
+          message.content = q;
+          let sliceStarts = index === 0 ? 0 : NUM_OPTIONS * index;
+          let sliceEnds = sliceStarts + NUM_OPTIONS;
+          message.options = options.slice(sliceStarts, sliceEnds);
+          message.actions = actions.slice(sliceStarts, sliceEnds);
+          messages.push(message);
+        });
+      setMsgs(messages);
+      setMessagesSet(true);
+    }
   }, [cells]);
 
   const handleClickOption = () => {};
