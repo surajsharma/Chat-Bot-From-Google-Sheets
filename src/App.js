@@ -14,12 +14,10 @@ export default function App() {
 
     const data = await response.json();
     const cells = data.feed.entry.map(e => e.gs$cell);
-    let message = { content: "", options: [], actions: [] };
-    let messages = [];
     let questions = [],
       options = [],
       actions = [];
-
+    let messages = [];
     cells &&
       cells.forEach((c, index) => {
         if (index == 0 || index % 7 === 0) {
@@ -35,15 +33,17 @@ export default function App() {
 
     questions &&
       questions.forEach((q, index) => {
+        let message = { content: "", options: [], actions: [] };
         message.content = q;
         let sliceStarts = index === 0 ? 0 : NUM_OPTIONS * index;
         let sliceEnds = sliceStarts + NUM_OPTIONS;
         message.options = options.slice(sliceStarts, sliceEnds);
         message.actions = actions.slice(sliceStarts, sliceEnds);
-        messages.push(message);
+        messages = [...messages, message];
       });
 
     if (messages.length) {
+      // console.log(messages);
       setMsgs(messages);
     }
     setExcel(data);
