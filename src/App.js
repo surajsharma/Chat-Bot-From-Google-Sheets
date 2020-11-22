@@ -67,7 +67,10 @@ export default function App() {
                   {m.options.map(o => {
                     return (
                       <>
-                        <button>{o}</button> <br />
+                        <button onClick={() => setVisitor(visitor + 1)}>
+                          {o}
+                        </button>{" "}
+                        <br />
                       </>
                     );
                   })}
