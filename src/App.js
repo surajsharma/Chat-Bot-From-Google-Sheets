@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./style.css";
 
 const NUM_OPTIONS = 3;
@@ -7,6 +7,7 @@ export default function App() {
   let [msgs, setMsgs] = useState([]);
   let [excel, setExcel] = useState(null);
   let [visitor, setVisitor] = useState(0);
+  const scroll = useRef(null);
   useEffect(async () => {
     const response = await fetch(
       "https://spreadsheets.google.com/feeds/cells/1ds-MhihXq39ud4_ViP4XKhYFizk0MmUBp5NFgylMEXA/1/public/full?alt=json"
@@ -48,7 +49,10 @@ export default function App() {
     setExcel(data);
   }, []);
 
-  const handleClickOption = () => {};
+  const handleClickOption = () => {
+    setVisitor(visitor + 1);
+    scroll.current.scrollIntoView();
+  };
 
   return (
     <div>
@@ -62,7 +66,7 @@ export default function App() {
             {
               return (
                 <div
-                  key={index}
+                  key={m.content}
                   style={{
                     padding: "20px",
                     border: "1px solid gray",
@@ -74,9 +78,14 @@ export default function App() {
                   {m.options.map(o => {
                     return (
                       <>
-                        <button key={o} onClick={() => setVisitor(visitor + 1)}>
+                        <button
+                          key={o}
+                          onClick={handleClickOption}
+                          style={{ marginTop: "5px" }}
+                          ref={scroll}
+                        >
                           {o}
-                        </button>{" "}
+                        </button>
                         <br />
                       </>
                     );
