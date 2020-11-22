@@ -71,27 +71,27 @@ export default function App() {
                   key={m.content}
                   style={{
                     padding: "20px",
-                    border: "1px solid gray",
-                    marginTop: "10px"
+                    marginTop: "40px"
                   }}
                 >
                   {m.content}
                   <br />
-                  {m.options.map(o => {
-                    return (
-                      <>
-                        <button
-                          key={o}
-                          onClick={handleClickOption}
-                          style={{ marginTop: "5px" }}
-                          ref={scroll}
-                        >
-                          {o}
-                        </button>
-                        <br />
-                      </>
-                    );
-                  })}
+                  <div style={{ float: "right" }}>
+                    {m.options.map(o => {
+                      return (
+                        <div>
+                          <button
+                            key={o}
+                            onClick={handleClickOption}
+                            style={{ marginTop: "5px" }}
+                            ref={scroll}
+                          >
+                            {o}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               );
             }
