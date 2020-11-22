@@ -24,6 +24,18 @@ export default function App() {
     }
   }, [excel]);
 
+  useEffect(() => {
+    let message = { content: "", options: [], actions: [] };
+    let messages = [];
+    cells &&
+      cells.forEach((c, index) => {
+        if (index == 0 || index % 7 === 0) {
+          console.log(c, index);
+          message.content = c;
+          // question
+        }
+      });
+  }, [cells]);
   const handleClickOption = () => {};
 
   return (
