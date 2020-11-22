@@ -17,8 +17,8 @@ export default function App() {
     const cells = data.feed.entry.map(e => e.gs$cell);
     let questions = [],
       options = [],
-      actions = [];
-    let messages = [];
+      actions = [],
+      messages = [];
     cells &&
       cells.forEach((c, index) => {
         if (index == 0 || index % 7 === 0) {
@@ -35,9 +35,9 @@ export default function App() {
     questions &&
       questions.forEach((q, index) => {
         let message = { content: "", options: [], actions: [] };
-        message.content = q;
         let sliceStarts = index === 0 ? 0 : NUM_OPTIONS * index;
         let sliceEnds = sliceStarts + NUM_OPTIONS;
+        message.content = q;
         message.options = options.slice(sliceStarts, sliceEnds);
         message.actions = actions.slice(sliceStarts, sliceEnds);
         messages = [...messages, message];
@@ -49,8 +49,9 @@ export default function App() {
     setExcel(data);
   }, []);
 
-  const handleClickOption = () => {
+  const handleClickOption = e => {
     setVisitor(visitor + 1);
+    alert("you clicked on " + e.target.innerHTML);
     scroll.current.scrollIntoView();
   };
 
@@ -60,6 +61,7 @@ export default function App() {
         Chat Bot From Google Sheets {excel && excel.version}
       </h1>
 
+      <hr />
       {msgs &&
         msgs.map((m, index) => {
           if (index <= visitor) {
