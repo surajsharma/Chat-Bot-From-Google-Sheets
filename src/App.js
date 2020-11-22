@@ -6,7 +6,7 @@ const NUM_OPTIONS = 3;
 export default function App() {
   let [msgs, setMsgs] = useState([]);
   let [excel, setExcel] = useState(null);
-
+  let [visitor, setVisitor] = useState(0);
   useEffect(async () => {
     const response = await fetch(
       "https://spreadsheets.google.com/feeds/cells/1ds-MhihXq39ud4_ViP4XKhYFizk0MmUBp5NFgylMEXA/1/public/full?alt=json"
@@ -43,7 +43,6 @@ export default function App() {
       });
 
     if (messages.length) {
-      // console.log(messages);
       setMsgs(messages);
     }
     setExcel(data);
@@ -56,6 +55,16 @@ export default function App() {
       <h1 onClick={() => console.log(msgs)}>
         Chat Bot From Google Sheets {excel && excel.version}
       </h1>
+
+      {msgs &&
+        msgs.map((m, index) => {
+          if (index <= visitor) {
+            <div key={index}>
+              {m.content}
+              <br />
+            </div>;
+          }
+        })}
     </div>
   );
 }
