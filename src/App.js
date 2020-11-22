@@ -56,47 +56,49 @@ export default function App() {
   };
 
   return (
-    <div>
-      <h1 onClick={() => console.log(msgs)}>
-        Chat Bot From Google Sheets {excel && excel.version}
-      </h1>
+    <div style={{ width: "400px", margin: "auto" }}>
+      <div style={{ background: "blue", padding: "10px", height: "90vh" }}>
+        <h1 onClick={() => console.log(msgs)}>
+          Chat Bot From Google Sheets {excel && excel.version}
+        </h1>
 
-      <hr />
-      {msgs &&
-        msgs.map((m, index) => {
-          if (index <= visitor) {
-            {
-              return (
-                <div
-                  key={m.content}
-                  style={{
-                    padding: "20px",
-                    marginTop: "40px"
-                  }}
-                >
-                  {m.content}
-                  <br />
-                  <div style={{ float: "right" }}>
-                    {m.options.map(o => {
-                      return (
-                        <div>
-                          <button
-                            key={o}
-                            onClick={handleClickOption}
-                            style={{ marginTop: "5px" }}
-                            ref={scroll}
-                          >
-                            {o}
-                          </button>
-                        </div>
-                      );
-                    })}
+        <hr />
+        {msgs &&
+          msgs.map((m, index) => {
+            if (index <= visitor) {
+              {
+                return (
+                  <div
+                    key={m.content}
+                    style={{
+                      padding: "20px",
+                      marginTop: "40px"
+                    }}
+                  >
+                    {m.content}
+                    <br />
+                    <div style={{ float: "right" }}>
+                      {m.options.map(o => {
+                        return (
+                          <div>
+                            <button
+                              key={o}
+                              onClick={handleClickOption}
+                              style={{ marginTop: "5px" }}
+                              ref={scroll}
+                            >
+                              {o}
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              );
+                );
+              }
             }
-          }
-        })}
+          })}
+      </div>
     </div>
   );
 }
