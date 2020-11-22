@@ -59,10 +59,21 @@ export default function App() {
       {msgs &&
         msgs.map((m, index) => {
           if (index <= visitor) {
-            <div key={index}>
-              {m.content}
-              <br />
-            </div>;
+            {
+              return (
+                <div key={index}>
+                  {m.content}
+                  <br />
+                  {m.options.map(o => {
+                    return (
+                      <>
+                        <button>{o}</button> <br />
+                      </>
+                    );
+                  })}
+                </div>
+              );
+            }
           }
         })}
     </div>
