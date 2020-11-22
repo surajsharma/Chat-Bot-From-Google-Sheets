@@ -61,13 +61,20 @@ export default function App() {
           if (index <= visitor) {
             {
               return (
-                <div key={index}>
+                <div
+                  key={index}
+                  style={{
+                    padding: "20px",
+                    border: "1px solid gray",
+                    marginTop: "10px"
+                  }}
+                >
                   {m.content}
                   <br />
                   {m.options.map(o => {
                     return (
                       <>
-                        <button onClick={() => setVisitor(visitor + 1)}>
+                        <button key={o} onClick={() => setVisitor(visitor + 1)}>
                           {o}
                         </button>{" "}
                         <br />
