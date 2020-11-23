@@ -56,11 +56,11 @@ export default function App() {
   };
 
   return (
-    <div style={{ width: "400px", margin: "auto" }}>
-      <div style={{ background: "blue", padding: "10px", height: "90vh" }}>
-        <h1 onClick={() => console.log(msgs)}>
-          Chat Bot From Google Sheets {excel && excel.version}
-        </h1>
+    <div style={{ width: "60%", margin: "auto" }}>
+      <div style={{ padding: "10px" }}>
+        <h2 onClick={() => console.log(msgs)}>
+          Google Sheets Chat Bot {excel && excel.version}
+        </h2>
 
         <hr />
         {msgs &&
@@ -72,7 +72,7 @@ export default function App() {
                     key={m.content}
                     style={{
                       padding: "20px",
-                      marginTop: "40px"
+                      marginTop: "70px"
                     }}
                   >
                     {m.content}
